@@ -11,45 +11,47 @@ namespace Jeu_Alumettes
         static void Main(string[] args)
         {
             Random random = new Random();
-            Console.WriteLine("Welcome at the matches game.\nIf you want to know how to play the game, it's written in the README file.\n");
+            Console.WriteLine("=============Welcome at the matches game=============\n\nIf you want to learn how to play the game, it's all written in the README file.\n\n");
 
             ///Initialisation du nombre d'alumettes.
-            Console.WriteLine("Player, please choose the start number of matches.");
+            Console.Write("Player, please choose the start number of matches : ");
             int nbAlumettes;
             string input = Console.ReadLine();
             while(!int.TryParse(input, out nbAlumettes) || nbAlumettes <= 0)
             {
-                Console.WriteLine("Wrong choice please choose a whole number above 0");
+                Console.WriteLine("Wrong choice please choose a whole number above 0\n");
+                Console.Write("Player, please choose the start number of matches : ");
                 input = Console.ReadLine();
             }
             int nbAlumettesRestantes = nbAlumettes;
 
-            Affichage(nbAlumettes, nbAlumettesRestantes);
+            AffichageAlumettes(nbAlumettes, nbAlumettesRestantes);
 
             ///Boucle de jeu principale
             while (nbAlumettesRestantes > 0)
             {
                 ///Tour du joueur------------------------------------------------------------
-                Console.Write("Player, choose the number of matches to withdraw : ");
+                Console.Write("\nPlayer, choose the number of matches to withdraw : ");
                 int choixJoueur;
                 input = Console.ReadLine();
                 while (!int.TryParse(input, out choixJoueur) || !(choixJoueur > 0 && choixJoueur < 4 && choixJoueur <= nbAlumettesRestantes))
                 {
                     Console.WriteLine("Wrong choice please choose a whole number between 1 and max between 3 and the number of matches left.\n");
-                    Console.Write("Player, choose the number of matches to withdraw : ");
+                    Console.Write("Player, please choose the number of matches to withdraw : ");
                     input = Console.ReadLine();
                 }
-                ///Affichage choix Joueur
+                ///AffichageAlumettes choix Joueur
                 nbAlumettesRestantes -= choixJoueur;
-                Console.WriteLine($"You withdrew {choixJoueur} match(es).");
-                Affichage(nbAlumettes, nbAlumettesRestantes);
-
+                Console.WriteLine($"\nYou withdrew {choixJoueur} match(es).");
+                
                 ///Test de fin de partie (perdante)
                 if (nbAlumettesRestantes == 0)
                 {
-                    Console.WriteLine("You lost.");
+                    Console.WriteLine("\n\nYou lost.");
                     break;
                 }
+
+                AffichageAlumettes(nbAlumettes, nbAlumettesRestantes);
 
                 ///Tour de l'ordinateur---------------------------------------------------
                 int choixOrdinateur;
@@ -68,28 +70,30 @@ namespace Jeu_Alumettes
                     choixOrdinateur = random.Next(1, 3);
                 }
 
-                ///Affichage choix ordinateur
+                ///AffichageAlumettes choix ordinateur
                 Console.WriteLine($"The AI withdrew {choixOrdinateur} match(es).");
                 nbAlumettesRestantes -= choixOrdinateur;
-                Affichage(nbAlumettes, nbAlumettesRestantes);
 
                 ///Test fin de partie (gagnante)
                 if (nbAlumettesRestantes == 0)
                 {
-                    Console.WriteLine("You won ! The IA withdrew the last match.");
+                    Console.WriteLine("\n\nYou won ! The IA withdrew the last match.");
                     break;
                 }
+                AffichageAlumettes(nbAlumettes, nbAlumettesRestantes);
             }
 
             Console.Read();
         }
 
-        static void Affichage(int nbAlumettes, int nbAlumettesRestantes)
+        static void AffichageAlumettes(int nbAlumettes, int nbAlumettesRestantes)
         {
-            ///Affichage du nombre d'alumettes restantes avec des espaces pour les alumettes retirées.
+            ///AffichageAlumettes du nombre d'alumettes restantes avec des espaces pour les alumettes retirées.
             string alumettes = string.Concat(Enumerable.Repeat("|", nbAlumettesRestantes));
             string vide = string.Concat(Enumerable.Repeat(" ", nbAlumettes - nbAlumettesRestantes));
             Console.WriteLine(vide + alumettes);
         }
+
+        
     }
 }
