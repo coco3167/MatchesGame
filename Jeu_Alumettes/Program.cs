@@ -10,10 +10,11 @@ namespace Jeu_Alumettes
     {
         static void Main(string[] args)
         {
-            Random random = new Random();
             Console.WriteLine("=============Welcome at the matches game=============\n\nIf you want to learn how to play the game, it's all written in the README file.\n\n");
 
-            ///Initialisation du nombre d'alumettes.
+            Random random = new Random();
+
+            //Initialisation du nombre d'alumettes.
             Console.Write("Player, please choose the start number of matches : ");
             int nbAlumettes;
             string input = Console.ReadLine();
@@ -47,7 +48,7 @@ namespace Jeu_Alumettes
                 ///Test de fin de partie (perdante)
                 if (nbAlumettesRestantes == 0)
                 {
-                    Console.WriteLine("\n\nYou lost.");
+                    AffichageMessageFin("You lost.");
                     break;
                 }
 
@@ -77,7 +78,7 @@ namespace Jeu_Alumettes
                 ///Test fin de partie (gagnante)
                 if (nbAlumettesRestantes == 0)
                 {
-                    Console.WriteLine("\n\nYou won ! The IA withdrew the last match.");
+                    AffichageMessageFin("You won ! The IA withdrew the last match.");
                     break;
                 }
                 AffichageAlumettes(nbAlumettes, nbAlumettesRestantes);
@@ -93,7 +94,11 @@ namespace Jeu_Alumettes
             string vide = string.Concat(Enumerable.Repeat(" ", nbAlumettes - nbAlumettesRestantes));
             Console.WriteLine(vide + alumettes);
         }
+        static void AffichageMessageFin(string message)
+        {
+            Console.WriteLine("\n" + String.Concat(Enumerable.Repeat("-", 50)) + "\n");
+            Console.WriteLine(message);
+        }
 
-        
     }
 }
