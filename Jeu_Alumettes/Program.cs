@@ -11,14 +11,31 @@ namespace Jeu_Alumettes
         static void Main(string[] args)
         {
             Console.WriteLine("=============Welcome at the matches game=============\n\nIf you want to learn how to play the game, it's all written in the README file.\n\n");
+            Update();
+        }
 
+        static void AffichageAlumettes(int nbAlumettes, int nbAlumettesRestantes)
+        {
+            ///AffichageAlumettes du nombre d'alumettes restantes avec des espaces pour les alumettes retirées.
+            string alumettes = string.Concat(Enumerable.Repeat("|", nbAlumettesRestantes));
+            string vide = string.Concat(Enumerable.Repeat(" ", nbAlumettes - nbAlumettesRestantes));
+            Console.WriteLine(vide + alumettes);
+        }
+        static void AffichageMessageFin(string message)
+        {
+            Console.WriteLine("\n" + String.Concat(Enumerable.Repeat("-", 50)) + "\n");
+            Console.WriteLine(message);
+        }
+
+        static void Update()
+        {
             Random random = new Random();
 
             //Initialisation du nombre d'alumettes.
             Console.Write("Player, please choose the start number of matches : ");
             int nbAlumettes;
             string input = Console.ReadLine();
-            while(!int.TryParse(input, out nbAlumettes) || nbAlumettes <= 0)
+            while (!int.TryParse(input, out nbAlumettes) || nbAlumettes <= 0)
             {
                 Console.WriteLine("Wrong choice please choose a whole number above 0\n");
                 Console.Write("Player, please choose the start number of matches : ");
@@ -44,7 +61,7 @@ namespace Jeu_Alumettes
                 ///AffichageAlumettes choix Joueur
                 nbAlumettesRestantes -= choixJoueur;
                 Console.WriteLine($"\nYou withdrew {choixJoueur} match(es).");
-                
+
                 ///Test de fin de partie (perdante)
                 if (nbAlumettesRestantes == 0)
                 {
@@ -83,21 +100,15 @@ namespace Jeu_Alumettes
                 }
                 AffichageAlumettes(nbAlumettes, nbAlumettesRestantes);
             }
+            
+            Console.Write("\n\n\n\n\nDo you want to replay (y/n) ? ");
+            input = Console.ReadLine();
 
-            Console.Read();
-        }
-
-        static void AffichageAlumettes(int nbAlumettes, int nbAlumettesRestantes)
-        {
-            ///AffichageAlumettes du nombre d'alumettes restantes avec des espaces pour les alumettes retirées.
-            string alumettes = string.Concat(Enumerable.Repeat("|", nbAlumettesRestantes));
-            string vide = string.Concat(Enumerable.Repeat(" ", nbAlumettes - nbAlumettesRestantes));
-            Console.WriteLine(vide + alumettes);
-        }
-        static void AffichageMessageFin(string message)
-        {
-            Console.WriteLine("\n" + String.Concat(Enumerable.Repeat("-", 50)) + "\n");
-            Console.WriteLine(message);
+            if (input == "y")
+            {
+                Console.Clear();
+                Update();
+            }
         }
 
     }
